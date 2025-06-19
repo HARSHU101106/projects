@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astronomy Hub</title>
+
+    <!-- Internal CSS -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #0e0f1a;
+            color: #00ffcc;
+        }
+        h1, h2 {
+            margin: 0;
+            text-align: center;
+        }
+        p {
+            line-height: 1.8;
+        }
+        hr {
+            border: 1px solid #444;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+           
+            
+            padding: 20px 0;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            color: #00ffcc;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            margin-top: 10px;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #00ffcc;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            transition: color 0.3s, background 0.3s;
+        }
+        nav ul li a:hover {
+            background: #00ffcc;
+            color: #0e0f1a;
+            border-radius: 5px;
+        }
+        .info-box {
+            background: #0f0f1a;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #00ffcc;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+        .info-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.5);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 50px 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #00ffcc;
+        }
+        .section p {
+            text-align: justify;
+            font-size: 1.1rem;
+            color: #00ffcc;
+        }
+
+        /* Contact Section */
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        form input, form textarea, form button {
+            margin-bottom: 15px;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #00ffcc;
+            background: #0e0f1a;
+            color: #00ffcc;
+        }
+        form input::placeholder, form textarea::placeholder {
+            color: #777;
+        }
+        form button {
+            background: #00ffcc;
+            color: #0e0f1a;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        form button:hover {
+            background: #00e6b8;
+            transform: translateY(-3px);
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #0f0f1a;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        footer p {
+            margin: 0;
+        }
+        .video-container {
+            position: relative;
+            height: 25vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+        /* Styling for the video */
+        .video-container video {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 25%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <audio autoplay loop style="display: none;">
+        <source src="C:\Users\Harshini\Downloads\Ambient Space Synth Music (For Videos) - Adrift by Hayden Folker.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Header Section -->
+
+        <div class="video-container container" style="background-color: none;">
+            <video autoplay loop muted>
+                <source src="C:\Users\Harshini\Desktop\astronomy project 2\Galaxy Reverse Loop View At Night Free Background Videos, No Copyright  _ All Background Videos.mp4" type="video/mp4">
+            </video>
+            <header>
+            
+            <h1>🌠 Astro Hub</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="planets.html">Planets</a></li>
+                    <li><a href="stars.html">Stars</a></li>
+                    <li><a href="galaxies.html">Galaxies</a></li>
+                    <li><a href="theory.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+  
+   
+
+    <!-- Contact Section -->
+    <section id="contact" style="background-image: url('https://wallpapercave.com/wp/wp4820223.jpg'); background-repeat: no-repeat;background-position: center; background-size: cover;">
+  
+        <h2>📧 Contact Us</h2>
+        <form style="text-align: center;">
+            <input type="text" name="name" placeholder="Your Name" required class="info-box"><br>
+            <input type="email" name="email" placeholder="Your Email" required class="info-box"><br>
+            <textarea name="message" rows="5" placeholder="Your Message" class="info-box"></textarea><br>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 Astronomy Hub. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

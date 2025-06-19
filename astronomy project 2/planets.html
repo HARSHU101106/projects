@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astronomy Hub</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #0e0f1a;
+            color: #00ffcc;
+        }
+        h1, h2 {
+            margin: 0;
+            text-align: center;
+        }
+        p {
+            line-height: 1.8;
+        }
+        hr {
+            border: 1px solid #444;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        header {
+           
+            
+           padding: 20px 0;
+       }
+       .video-container {
+            position: relative;
+            height: 25vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+        /* Styling for the video */
+        .video-container video {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 25%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            color:  #00ffcc;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            margin-top: 10px;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #00ffcc;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            transition: color 0.3s, background 0.3s;
+        }
+        nav ul li a:hover {
+            background:  #00ffcc;
+            color: #0e0f1a;
+            border-radius: 5px;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 50px 20px;
+            background: #1b1b2f;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #00ffcc;
+        }
+        .section p {
+            text-align: justify;
+            font-size: 1.1rem;
+            color: #00ffcc;
+        }
+
+        /* Planet Box Styles */
+        .planet-box {
+            background: #0f0f1a;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #00ffcc;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+        .planet-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.5);
+        }
+        .planet-title {
+            font-size: 1.5rem;
+            color: #00ffcc;
+            margin-bottom: 10px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #0f0f1a;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop style="display: none;">
+        <source src="C:\Users\Harshini\Downloads\Ambient Space Synth Music (For Videos) - Adrift by Hayden Folker.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="video-container container" style="background-color: none;">
+        <video autoplay loop muted>
+            <source src="C:\Users\Harshini\Desktop\astronomy project 2\Galaxy Reverse Loop View At Night Free Background Videos, No Copyright  _ All Background Videos.mp4" type="video/mp4">
+        </video>
+        <header>
+        
+        <h1>🌠 Astro Hub</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="planets.html">Planets</a></li>
+                <li><a href="stars.html">Stars</a></li>
+                <li><a href="galaxies.html">Galaxies</a></li>
+                <li><a href="theory.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+    <!-- Planets Section -->
+    <section id="planets" class="section" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTphgrXyzZvkGhyklpyCNXbLnLGs8nib1jt9Q&s'); background-repeat: no-repeat;background-position: center; background-size: cover;">
+        <h2>🌌 Exploring the Wonders of Our Solar System: A Journey Through the Planets</h2>
+
+        <!-- Mercury -->
+        <a href="https://science.nasa.gov/mercury/" class="planet-box">
+            <div class="planet-title">🌞 Mercury: The Speedy Messenger</div>
+            <p>
+                The closest planet to the Sun, Mercury is a scorching world where temperatures can soar to a blistering 430°C during the day and plummet to -180°C at night. Despite its extreme conditions, Mercury races around the Sun in just 88 days, earning its title as the fastest planet in our solar system.
+            </p>
+        </a>
+
+        <!-- Venus -->
+        <a href="https://science.nasa.gov/venus/" class="planet-box">
+            <div class="planet-title">🌫️ Venus: Earth's Twin with a Twist</div>
+            <p>
+                Often called Earth's "sister planet" due to its similar size and structure, Venus is anything but hospitable. With surface temperatures exceeding 475°C, it holds the record for the hottest planet. Its thick, toxic atmosphere traps heat in a runaway greenhouse effect, making it a fiery, swirling inferno.
+            </p>
+        </a>
+
+        <!-- Earth -->
+        <a href="https://science.nasa.gov/earth/" class="planet-box">
+            <div class="planet-title">🌎 Earth: The Cradle of Life</div>
+            <p>
+                Our home, Earth, is the only known planet to support life. With its perfect balance of atmosphere, water, and temperature, Earth has nurtured millions of species for over 4.5 billion years.
+            </p>
+        </a>
+
+        <!-- Mars -->
+        <a href="https://science.nasa.gov/mars/" class="planet-box">
+            <div class="planet-title">🔴 Mars: The Red Planet</div>
+            <p>
+                Dubbed the "Red Planet," Mars captivates us with its rusty surface and potential for life. Scientists are eager to explore its vast deserts, icy poles, and deep canyons in search of signs of ancient microbial life.
+            </p>
+        </a>
+
+        <!-- Jupiter -->
+        <a href="https://science.nasa.gov/jupiter/" class="planet-box">
+            <div class="planet-title">⛓️ Jupiter: The Giant Protector</div>
+            <p>
+                The king of planets, Jupiter is a gas giant so massive that over 1,300 Earths could fit inside it! Its Great Red Spot, a storm larger than Earth, has raged for centuries.
+            </p>
+        </a>
+
+        <!-- Saturn -->
+        <a href="https://science.nasa.gov/saturn/" class="planet-box">
+            <div class="planet-title">💍 Saturn: The Jewel of the Solar System</div>
+            <p>
+                Saturn, with its dazzling rings, is often considered the "crown jewel" of our solar system. Composed mostly of ice and rock, these magnificent rings stretch for thousands of kilometers.
+            </p>
+        </a>
+
+        <!-- Uranus -->
+        <a href="https://science.nasa.gov/uranus/" class="planet-box">
+            <div class="planet-title">❄️ Uranus: The Tilted Ice Giant</div>
+            <p>
+                Uranus is a planet of mysteries. Its unusual tilt of 98 degrees makes it roll around the Sun like a ball, leading to extreme seasonal variations.
+            </p>
+        </a>
+
+        <!-- Neptune -->
+        <a href="https://science.nasa.gov/neptune/" class="planet-box">
+            <div class="planet-title">🌊 Neptune: The Windy World</div>
+            <p>
+                The farthest planet from the Sun, Neptune is a world of icy winds and turbulent storms. Its winds, reaching speeds of 2,100 km/h, are the fastest in the solar system.
+            </p>
+        </a>
+
+        <p style="text-align: center; font-size: 1.2rem; margin-top: 20px; color:  #00ffcc;">
+            🚀 The universe awaits exploration. Who knows? One day, we might set foot on these distant worlds!
+        </p>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 Astronomy Hub. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

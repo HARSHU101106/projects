@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astronomy Hub - Stars</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #0e0f1a;
+            color: #00ffcc;
+        }
+        h1, h2 {
+            margin: 0;
+            text-align: center;
+        }
+        p {
+            line-height: 1.8;
+        }
+        hr {
+            border: 1px solid #444;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+           
+            
+           padding: 20px 0;
+       }
+        header h1 {
+            font-size: 2.5rem;
+            color:  #00ffcc;
+        }
+        .video-container {
+            position: relative;
+            height: 25vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+        /* Styling for the video */
+        .video-container video {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 25%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            margin-top: 10px;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #00ffcc;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            transition: color 0.3s, background 0.3s;
+        }
+        nav ul li a:hover {
+            background:  #00ffcc;
+            color: #0e0f1a;
+            border-radius: 5px;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 50px 20px;
+            background: #1b1b2f;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #00ffcc;
+        }
+        .section p {
+            text-align: justify;
+            font-size: 1.1rem;
+            color: #00ffcc;
+        }
+
+        /* Box Styles for Each Point */
+        .info-box {
+            background: #0f0f1a;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #00ffcc;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+        .info-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.5);
+        }
+        .info-title {
+            font-size: 1.5rem;
+            color: #00ffcc;
+            margin-bottom: 10px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #0f0f1a;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop style="display: none;">
+        <source src="C:\Users\Harshini\Downloads\Ambient Space Synth Music (For Videos) - Adrift by Hayden Folker.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="video-container container" style="background-color: none;">
+        <video autoplay loop muted>
+            <source src="C:\Users\Harshini\Desktop\astronomy project 2\Galaxy Reverse Loop View At Night Free Background Videos, No Copyright  _ All Background Videos.mp4" type="video/mp4">
+        </video>
+        <header>
+        
+        <h1>🌠 Astro Hub</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="planets.html">Planets</a></li>
+                <li><a href="stars.html">Stars</a></li>
+                <li><a href="galaxies.html">Galaxies</a></li>
+                <li><a href="theory.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+    <!-- Stars Section with Box Effects -->
+    <section id="stars" class="section" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTphgrXyzZvkGhyklpyCNXbLnLGs8nib1jt9Q&s'); background-repeat: no-repeat;background-position: center; background-size: cover;">
+        <div class="container">
+            <h2>🌟 Stars: The Shining Jewels of the Universe</h2>
+
+            <!-- Box 1 -->
+            <a href="https://science.nasa.gov/universe/stars/" class="info-box">
+            <div>
+                <div class="info-title">💫 What Are Stars?</div>
+                <p>Stars are enormous spheres of hot, glowing gases, primarily made up of hydrogen and helium. At their core, nuclear fusion converts hydrogen into helium, releasing an immense amount of energy in the form of heat and light.</p>
+            </div></a>
+
+            <!-- Box 2 -->
+            <a href="https://science.nasa.gov/sun/" class="info-box">
+            <div>
+                <div class="info-title">🌞 Our Sun: A Star Up Close</div>
+                <p>The Sun, the star at the center of our solar system, provides warmth, light, and energy, making life possible on Earth. It is just one of billions of stars in the Milky Way galaxy.</p>
+            </div>
+            </a>
+
+            <!-- Box 3 -->
+            <a href="https://science.nasa.gov/universe/stars/types/" class="info-box">
+            <div >
+                <div class="info-title">🌌 Types of Stars: A Spectrum of Brilliance</div>
+                <p>Stars vary in size, color, and temperature:</p>
+                <ul>
+                    <li>🌟 <strong>Blue Giants:</strong> The hottest and most massive stars.</li>
+                    <li>🔥 <strong>Red Giants:</strong> Aging stars that give off a reddish hue.</li>
+                    <li>⭐ <strong>White Dwarfs:</strong> Dense remnants of medium-sized stars.</li>
+                    <li>💥 <strong>Supernovae:</strong> Exploding stars scattering elements across space.</li>
+                </ul>
+            </div>
+            </a>
+
+            <!-- Box 4 -->
+            <a href="https://science.nasa.gov/universe/stars/" class="info-box">
+            <div>
+                <div class="info-title">🌠 The Life Cycle of a Star</div>
+                <p>Stars evolve through various stages:</p>
+                <ol>
+                    <li><strong>Nebula:</strong> Stars are born in vast clouds of gas and dust.</li>
+                    <li><strong>Main Sequence:</strong> Stars burn hydrogen for most of their lifetime.</li>
+                    <li><strong>Red Giant or Supergiant:</strong> Stars expand and cool as they age.</li>
+                    <li><strong>The End:</strong> Stars end as white dwarfs or explode as supernovae.</li>
+                </ol>
+            </div>
+            </a>
+
+            <!-- Box 5 -->
+            <a href="https://science.nasa.gov/universe/stars/multiple-star-systems/" class="info-box">
+            <div>
+                <div class="info-title">🌌 Famous Stars: Icons of the Night Sky</div>
+                <ul>
+                    <li>✨ <strong>Sirius:</strong> The brightest star visible from Earth.</li>
+                    <li>✨ <strong>Betelgeuse:</strong> A red supergiant in the Orion constellation.</li>
+                    <li>✨ <strong>Polaris:</strong> The North Star, guiding travelers.</li>
+                </ul>
+            </div>
+            </a>
+
+            <!-- Box 6 -->
+            <div class="info-box">
+                <div class="info-title">🔭 The Future of Star Exploration</div>
+                <p>With the <strong>James Webb Space Telescope (JWST)</strong>, scientists can observe stars that formed billions of years ago, helping us understand the universe’s past and future.</p>
+            </div>
+
+            <!-- Box 7 -->
+            <div class="info-box">
+                <div class="info-title">🌠 Conclusion: Stars, the Architects of the Universe</div>
+                <p>Stars are more than just twinkling lights — they shape galaxies, create elements, and tell the story of the cosmos. Every atom in our bodies was once part of a star, making us "star stuff."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 Astronomy Hub. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
