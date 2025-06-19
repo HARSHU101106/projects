@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Home Page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <style>
+            body {
+            overflow-x: hidden;
+            background: linear-gradient(to top right, #2f308a, #15164f, #050016);
+            }
+
+            .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            right: -250px; /* Initially hidden */
+            background: linear-gradient(to bottom right, #2f308a, #15164f, #050016);
+            padding-top: 60px;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+            }
+
+            .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #17a2b8;
+            display: block;
+            transition: background-color 0.3s;
+            }
+
+            .sidebar a:hover {
+             background: linear-gradient(to bottom right, #080808, #15164f, #050016);
+            }
+
+            .open-sidebar {
+            right: 0;
+            }
+
+            .menu-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1100;
+            background: linear-gradient(to bottom right, #2f308a, #15164f, #050016);
+            border: none;
+            font-size: 1.5rem;
+            padding: 10px 15px;
+            border-radius: 5px;
+            }
+
+            header{
+                 background: linear-gradient(to top right, #2f308a, #15164f, #050016);
+            }
+
+            footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background: linear-gradient(to bottom right, #2f308a, #15164f, #050016);
+            }
+
+        </style>
+
+        <script>
+            function toggleSidebar() {
+                document.getElementById("sidebar").classList.toggle("open-sidebar");
+            }
+        </script>
+
+    </head>
+
+    <body>
+
+        <header>
+            <div class="flex flex-column">
+                <div class="p-2 text-info">
+                <h1><img src="C:\Users\Harshini\Pictures\Screenshots\Screenshot 2025-02-04 130343.png" class="rounded-circle" alt="logo" width="80px" height="80px"> Krish Yoga</h1>
+                <button class="menu-btn text-info" onclick="toggleSidebar()">☰</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="sidebar" id="sidebar">
+            <a href="C:\Users\Harshini\Desktop\bootstap project 1\home.html">Home</a>
+            <a href="C:\Users\Harshini\Desktop\bootstap project 1\aboutus.html">About</a>
+            <a href="C:\Users\Harshini\Desktop\bootstap project 1\courses.html">Courses</a>
+            <a href="C:\Users\Harshini\Desktop\bootstap project 1\livesessions.html">Live Sessions</a>
+            <a href="C:\Users\Harshini\Desktop\bootstap project 1\instructorprofile.html">Instructors</a>
+            <a href="C:\Users\Harshini\Desktop\bootstap project 1\blog.html">Blog</a>
+            <a href="C:\Users\Harshini\Desktop\bootstap project 1\register.html">Login / Register</a>
+        </div>
+
+        <main>
+            <div class="container" style="padding-top: 40px; padding-bottom: 70px;">
+                <h2 class="mb-4 text-center text-info">Live Session Schedule</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle text-center">
+                    <thead>
+                        <tr>
+                        <th class="bg-light text-info">Date</th>
+                        <th class="bg-light text-info">Day</th>
+                        <th class="bg-light text-info">Time</th>
+                        <th class="bg-light text-info">Session</th>
+                        <th class="bg-light text-info">Instructor</th>
+                        <th class="bg-light text-info">Seats Available</th>
+                        <th class="bg-light text-info">Book Now</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-info text-light">
+                        <td class="bg-info text-light">10 June 2025</td>
+                        <td class="bg-info text-light">Tuesday</td>
+                        <td class="bg-info text-light">6:00 AM - 7:00 AM</td>
+                        <td class="bg-info text-light">What is Yoga ?</td>
+                        <td class="bg-info text-light">Krish</td>
+                        <td class="bg-info text-light">12</td>
+                        <td class="bg-info text-light"><button class="btn btn-outline-light btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-light text-info">
+                        <td class="bg-light text-info">10 June 2025</td>
+                        <td class="bg-light text-info">Tuesday</td>
+                        <td class="bg-light text-info">7:00 AM - 8:00 AM</td>
+                        <td class="bg-light text-info">Understanding our inner soul</td>
+                        <td class="bg-light text-info">Gokul</td>
+                        <td class="bg-light text-info">8</td>
+                        <td class="bg-light text-info"><button class="btn btn-outline-info btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-info text-light">
+                        <td class="bg-info text-light">10 June 2025</td>
+                        <td class="bg-info text-light">Tuesday</td>
+                        <td class="bg-info text-light">9:00 AM - 10:00 AM</td>
+                        <td class="bg-info text-light">Controlling Mind using yoga</td>
+                        <td class="bg-info text-light">Rahul</td>
+                        <td class="bg-info text-light">15</td>
+                        <td class="bg-info text-light"><button class="btn btn-outline-light btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-light text-info">
+                        <td class="bg-light text-info">10 June 2025</td>
+                        <td class="bg-light text-info">Tuesday</td>
+                        <td class="bg-light text-info">10:00 AM - 11:00 AM</td>
+                        <td class="bg-light text-info">Power of Yoga</td>
+                        <td class="bg-light text-info">Madesh</td>
+                        <td class="bg-light text-info">10</td>
+                        <td class="bg-light text-info"><button class="btn btn-outline-info btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-info text-light">
+                        <td class="bg-info text-light">10 June 2025</td>
+                        <td class="bg-info text-light">Tuesday</td>
+                        <td class="bg-info text-light">11:00 AM - 12:00 pM</td>
+                        <td class="bg-info text-light">Stages of Yoga</td>
+                        <td class="bg-info text-light">Abi</td>
+                        <td class="bg-info text-light">19</td>
+                        <td class="bg-info text-light"><button class="btn btn-outline-light btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-light text-info">
+                        <td class="bg-light text-info">10 June 2025</td>
+                        <td class="bg-light text-info">Tuesday</td>
+                        <td class="bg-light text-info">12:00 PM - 01:00 PM</td>
+                        <td class="bg-light text-info">History of Yoga</td>
+                        <td class="bg-light text-info">Moni</td>
+                        <td class="bg-light text-info">5</td>
+                        <td class="bg-light text-info"><button class="btn btn-outline-info btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-info text-light">
+                        <td class="bg-info text-light">10 June 2025</td>
+                        <td class="bg-info text-light">Tuesday</td>
+                        <td class="bg-info text-light">01:00 PM - 02:00 PM</td>
+                        <td class="bg-info text-light">Transform Life With Yoga</td>
+                        <td class="bg-info text-light">Kavya</td>
+                        <td class="bg-info text-light">2</td>
+                        <td class="bg-info text-light"><button class="btn btn-outline-light btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-light text-info">
+                        <td class="bg-light text-info">10 June 2025</td>
+                        <td class="bg-light text-info">Tuesday</td>
+                        <td class="bg-light text-info">02:00 PM - 03:00 PM</td>
+                        <td class="bg-light text-info">About patanjali</td>
+                        <td class="bg-light text-info">Maya</td>
+                        <td class="bg-light text-info">20</td>
+                        <td class="bg-light text-info"><button class="btn btn-outline-info btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-info text-light">
+                        <td class="bg-info text-light">10 June 2025</td>
+                        <td class="bg-info text-light">Tuesday</td>
+                        <td class="bg-info text-light">03:00 PM - 04:00 PM</td>
+                        <td class="bg-info text-light">Best Practice for Daily Routine</td>
+                        <td class="bg-info text-light">Akash</td>
+                        <td class="bg-info text-light">30</td>
+                        <td class="bg-info text-light"><button class="btn btn-outline-light btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-light text-info">
+                        <td class="bg-light text-info">10 June 2025</td>
+                        <td class="bg-light text-info">Tuesday</td>
+                        <td class="bg-light text-info">04:00 PM - 05:00 PM</td>
+                        <td class="bg-light text-info">Yoga and Discipline</td>
+                        <td class="bg-light text-info">Priya</td>
+                        <td class="bg-light text-info">10</td>
+                        <td class="bg-light text-info"><button class="btn btn-outline-info btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-info text-light">
+                        <td class="bg-info text-light">10 June 2025</td>
+                        <td class="bg-info text-light">Tuesday</td>
+                        <td class="bg-info text-light">05:00 PM - 06:00 PM</td>
+                        <td class="bg-info text-light">Yoga for Overthinking</td>
+                        <td class="bg-info text-light">Janu</td>
+                        <td class="bg-info text-light">15</td>
+                        <td class="bg-info text-light"><button class="btn btn-outline-light btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-light text-info">
+                        <td class="bg-light text-info">10 June 2025</td>
+                        <td class="bg-light text-info">Tuesday</td>
+                        <td class="bg-light text-info">06:00 PM - 07:00 PM</td>
+                        <td class="bg-light text-info">Yoga for flexibility</td>
+                        <td class="bg-light text-info">Suriya</td>
+                        <td class="bg-light text-info">40</td>
+                        <td class="bg-light text-info"><button class="btn btn-outline-info btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-info text-light">
+                        <td class="bg-info text-light">10 June 2025</td>
+                        <td class="bg-info text-light">Tuesday</td>
+                        <td class="bg-info text-light">07:00 PM - 08:00 PM</td>
+                        <td class="bg-info text-light">Productive Day with Yoga</td>
+                        <td class="bg-info text-light">Harshu</td>
+                        <td class="bg-info text-light">5</td>
+                        <td class="bg-info text-light"><button class="btn btn-outline-light btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-light text-info">
+                        <td class="bg-light text-info">10 June 2025</td>
+                        <td class="bg-light text-info">Tuesday</td>
+                        <td class="bg-light text-info">08:00 PM - 09:00 PM</td>
+                        <td class="bg-light text-info">Advance yoga</td>
+                        <td class="bg-light text-info">Krish</td>
+                        <td class="bg-light text-info">5</td>
+                        <td class="bg-light text-info"><button class="btn btn-outline-info btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-info text-light">
+                        <td class="bg-info text-light">10 June 2025</td>
+                        <td class="bg-info text-light">Tuesday</td>
+                        <td class="bg-info text-light">09:00 PM - 09:30 PM</td>
+                        <td class="bg-info text-light">Yoga for Back Pain</td>
+                        <td class="bg-info text-light">Moni</td>
+                        <td class="bg-info text-light">12</td>
+                        <td class="bg-info text-light"><button class="btn btn-outline-light btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-light text-info">
+                        <td class="bg-light text-info">10 June 2025</td>
+                        <td class="bg-light text-info">Tuesday</td>
+                        <td class="bg-light text-info">09:30 PM - 10:00 PM</td>
+                        <td class="bg-light text-info">Yoga for beginners</td>
+                        <td class="bg-light text-info">Janu</td>
+                        <td class="bg-light text-info">8</td>
+                        <td class="bg-light text-info"><button class="btn btn-outline-info btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-info text-light">
+                        <td class="bg-info text-light">10 June 2025</td>
+                        <td class="bg-info text-light">Tuesday</td>
+                        <td class="bg-info text-light">10:00 PM - 11:00 PM</td>
+                        <td class="bg-info text-light">End your day with meditation</td>
+                        <td class="bg-info text-light">Kavya</td>
+                        <td class="bg-info text-light">17</td>
+                        <td class="bg-info text-light"><button class="btn btn-outline-light btn-sm">Book</button></td>
+                        </tr>
+
+                        <tr class="bg-light text-info">
+                        <td class="bg-light text-info">10 June 2025</td>
+                        <td class="bg-light text-info">Tuesday</td>
+                        <td class="bg-light text-info">11:00 PM - 11:30 PM</td>
+                        <td class="bg-light text-info">Yoga for peaceful sleep</td>
+                        <td class="bg-light text-info">Gokul</td>
+                        <td class="bg-light text-info">5</td>
+                        <td class="bg-light text-info"><button class="btn btn-outline-info btn-sm">Book</button></td>
+                        </tr>
+
+                    </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>  
+        </main>
+
+        <footer>
+            <div class="text-center text-info mt-3 p-3">
+                © 2025 KrishYoga. All Rights Reserved.
+            </div>
+        </footer>
+
+    </body>
+</html>
