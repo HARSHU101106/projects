@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="quizApp">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yoga & Bharatham Quiz</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- AngularJS 1.x -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+
+    <style>
+      body {
+        background: #f8fafb;
+      }
+      .quiz-card {
+        max-width: 900px;
+        margin: 30px auto;
+      }
+      .option-btn {
+        text-align: left;
+      }
+      .option-btn.correct {
+        border-color: #28a745 !important;
+        background: #e9f7ef;
+      }
+      .option-btn.incorrect {
+        border-color: #dc3545 !important;
+        background: #fdecea;
+      }
+      .timer-bar {
+        height: 8px;
+        transition: width 1s linear;
+      }
+      .category-pill {
+        font-weight: 600;
+      }
+      .explain {
+        border-left: 4px solid #0d6efd;
+        padding-left: 0.75rem;
+      }
+      @media (max-width: 576px) {
+        .quiz-card {
+          margin: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body ng-controller="QuizCtrl">
+    <div class="card quiz-card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="mb-0">Yoga & Bharatham Quiz</h5>
+          <span class="badge text-bg-primary category-pill"
+            >{{ currentQuestion.category }}</span
+          >
+        </div>
+
+        <!-- Progress -->
+        <div class="mb-3">
+          <div class="d-flex justify-content-between small">
+            <div>Question {{ index+1 }} of {{ questions.length }}</div>
+            <div>Score: {{ score }}</div>
+          </div>
+          <div class="progress" role="progressbar" aria-label="Progress">
+            <div
+              class="progress-bar"
+              style="width: {{ ((index+1)/questions.length)*100 }}%"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Timer -->
+        <div class="mb-3">
+          <div class="bg-light rounded">
+            <div
+              class="bg-warning timer-bar rounded"
+              style="width: {{ (timeLeft / timePerQuestion) * 100 }}%"
+            ></div>
+          </div>
+          <div class="text-end small mt-1">Time left: {{ timeLeft }}s</div>
+        </div>
+
+        <!-- Question -->
+        <div class="mb-3">
+          <h6 class="mb-1">{{ currentQuestion.text }}</h6>
+          <p class="text-muted small mb-0" ng-if="currentQuestion.subtext">
+            {{ currentQuestion.subtext }}
+          </p>
+        </div>
+
+        <!-- Options -->
+        <div class="vstack gap-2 mb-3">
+          <button
+            type="button"
+            class="btn btn-outline-secondary option-btn"
+            ng-repeat="opt in currentQuestion.options track by $index"
+            ng-class="{
+                  'disabled': answered,
+                  'correct': answered && opt.value === currentQuestion.answer,
+                  'incorrect': answered && selected === opt.value && opt.value !== currentQuestion.answer
+                }"
+            ng-click="select(opt.value)"
+          >
+            <strong class="me-2">{{ 'ABCD'.charAt($index) }}.</strong> {{
+            opt.label }}
+          </button>
+        </div>
+
+        <!-- Feedback -->
+        <div class="mb-3" ng-if="answered">
+          <div
+            class="alert"
+            ng-class="{'alert-success': isCorrect, 'alert-danger': !isCorrect}"
+          >
+            {{ isCorrect ? 'Correct!' : 'Incorrect.' }}
+            <span class="ms-1"
+              >Answer:
+              <strong>{{ labelFor(currentQuestion.answer) }}</strong></span
+            >
+          </div>
+          <div class="explain small" ng-if="currentQuestion.explain">
+            {{ currentQuestion.explain }}
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="d-flex justify-content-between">
+          <button
+            class="btn btn-outline-secondary"
+            ng-disabled="index===0"
+            ng-click="prev()"
+          >
+            Prev
+          </button>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-danger" ng-click="reset()">
+              Reset
+            </button>
+            <button
+              class="btn btn-primary"
+              ng-if="index < questions.length-1"
+              ng-disabled="!answered"
+              ng-click="next()"
+            >
+              Next
+            </button>
+            <button
+              class="btn btn-success"
+              ng-if="index === questions.length-1"
+              ng-disabled="!answered"
+              ng-click="finish()"
+            >
+              Finish
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title">Quiz Results</h6>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              ng-click="closeResults()"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="mb-2">
+              Score: <strong>{{ score }} / {{ questions.length }}</strong>
+            </p>
+            <p class="mb-2">
+              Accuracy:
+              <strong>{{ (score/questions.length)*100 | number:0 }}%</strong>
+            </p>
+            <ul class="list-group small">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-start"
+                ng-repeat="q in questions track by $index"
+              >
+                <div class="me-3">
+                  <div class="fw-semibold">{{ $index+1 }}. {{ q.text }}</div>
+                  <div class="text-muted">
+                    Correct: {{ labelFor(q.answer) }}
+                  </div>
+                </div>
+                <span
+                  class="badge"
+                  ng-class="{'text-bg-success': q.userChoice===q.answer, 'text-bg-danger': q.userChoice!==q.answer}"
+                >
+                  {{ q.userChoice===q.answer ? '✔' : '✖' }}
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+              ng-click="closeResults()"
+            >
+              Close
+            </button>
+            <button class="btn btn-primary" ng-click="reset()">
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Script -->
+    <script>
+      angular.module("quizApp", []).controller("QuizCtrl", [
+        "$scope",
+        "$interval",
+        function ($scope, $interval) {
+          // Data: Yoga and Bharatham/Bharatanatyam
+          $scope.questions = [
+            {
+              id: 1,
+              category: "Yoga",
+              text: "Which pose is known as Cobra Pose?",
+              subtext: "Choose the Sanskrit name.",
+              options: [
+                { value: "A", label: "Bhujangasana" },
+                { value: "B", label: "Vrikshasana" },
+                { value: "C", label: "Tadasana" },
+                { value: "D", label: "Savasana" },
+              ],
+              answer: "A",
+              explain:
+                "Bhujangasana is Cobra Pose; Vrikshasana is Tree, Tadasana is Mountain, Savasana is Corpse Pose.",
+            },
+            {
+              id: 2,
+              category: "Yoga",
+              text: "Which is not a branch of yoga?",
+              options: [
+                { value: "A", label: "Kundalini" },
+                { value: "B", label: "Raja" },
+                { value: "C", label: "Ayurveda" },
+                { value: "D", label: "Bhakti" },
+              ],
+              answer: "C",
+              explain:
+                "Ayurveda is a sister science of yoga, not a branch like Raja, Bhakti, or Kundalini.",
+            },
+            {
+              id: 3,
+              category: "Yoga",
+              text: "Savasana translates to which English name?",
+              options: [
+                { value: "A", label: "Corpse Pose" },
+                { value: "B", label: "Downward-Facing Dog" },
+                { value: "C", label: "Tree Pose" },
+                { value: "D", label: "Boat Pose" },
+              ],
+              answer: "A",
+              explain:
+                "Savasana means Corpse Pose, a restorative posture typically at the end of practice.",
+            },
+            {
+              id: 4,
+              category: "Bharatham",
+              text: "How many principal adavus groups are commonly taught in Bharatanatyam (Tanjore style reference)?",
+              subtext: "Select the closest widely taught count.",
+              options: [
+                { value: "A", label: "7" },
+                { value: "B", label: "9" },
+                { value: "C", label: "10" },
+                { value: "D", label: "12" },
+              ],
+              answer: "C",
+              explain:
+                "Many curricula group adavus into around 10 families (e.g., Tatta, Natta, Visharu, Tatti, Teermanam, Mandi, etc.); variations exist by school.",
+            },
+            {
+              id: 5,
+              category: "Bharatham",
+              text: "What is the primary expressive component conveying emotions in Bharatanatyam?",
+              options: [
+                { value: "A", label: "Nritta" },
+                { value: "B", label: "Nritya" },
+                { value: "C", label: "Natya" },
+                { value: "D", label: "Tala" },
+              ],
+              answer: "B",
+              explain:
+                "Nritya combines rhythm with expression (bhava, rasa) to convey meaning; Nritta is pure dance without expression; Natya emphasizes drama.",
+            },
+            {
+              id: 6,
+              category: "Yoga",
+              text: "The aim of Raja Yoga is primarily:",
+              options: [
+                { value: "A", label: "Physical strength" },
+                { value: "B", label: "Self‑realization" },
+                { value: "C", label: "Flexibility" },
+                { value: "D", label: "Weight loss" },
+              ],
+              answer: "B",
+              explain:
+                "Raja Yoga emphasizes meditation and control of the mind toward self‑realization.",
+            },
+            {
+              id: 7,
+              category: "Bharatham",
+              text: "Which term refers to rhythmic cycles in Indian classical dance and music?",
+              options: [
+                { value: "A", label: "Raga" },
+                { value: "B", label: "Tala" },
+                { value: "C", label: "Mudra" },
+                { value: "D", label: "Abhinaya" },
+              ],
+              answer: "B",
+              explain:
+                "Tala is the rhythmic framework; raga is melodic, mudra is hand gesture, abhinaya is expressional acting.",
+            },
+            {
+              id: 8,
+              category: "Yoga",
+              text: "In Kundalini Yoga, the coiled energy at the base of the spine is called:",
+              options: [
+                { value: "A", label: "Prana" },
+                { value: "B", label: "Kundalini Shakti" },
+                { value: "C", label: "Apana" },
+                { value: "D", label: "Ida" },
+              ],
+              answer: "B",
+              explain:
+                "Kundalini Shakti refers to the latent spiritual energy believed to reside at the base of the spine.",
+            },
+          ];
+
+          // State
+          $scope.index = 0;
+          $scope.score = 0;
+          $scope.answered = false;
+          $scope.isCorrect = false;
+          $scope.selected = null;
+          $scope.timePerQuestion = 30;
+          $scope.timeLeft = $scope.timePerQuestion;
+          let timerPromise = null;
+
+          Object.defineProperty($scope, "currentQuestion", {
+            get: function () {
+              return $scope.questions[$scope.index];
+            },
+          });
+
+          $scope.labelFor = function (value) {
+            const q = $scope.currentQuestion;
+            const opt = q.options.find((o) => o.value === value);
+            return opt ? opt.label : "";
+          };
+
+          function startTimer() {
+            stopTimer();
+            $scope.timeLeft = $scope.timePerQuestion;
+            timerPromise = $interval(function () {
+              $scope.timeLeft--;
+              if ($scope.timeLeft <= 0) {
+                $scope.timeLeft = 0;
+                $scope.autoSubmit();
+              }
+            }, 1000);
+          }
+          function stopTimer() {
+            if (timerPromise) {
+              $interval.cancel(timerPromise);
+              timerPromise = null;
+            }
+          }
+
+          $scope.select = function (value) {
+            if ($scope.answered) return;
+            $scope.selected = value;
+            $scope.answered = true;
+            $scope.isCorrect = value === $scope.currentQuestion.answer;
+            $scope.currentQuestion.userChoice = value;
+            if ($scope.isCorrect) $scope.score++;
+            stopTimer();
+          };
+
+          $scope.autoSubmit = function () {
+            if (!$scope.answered) {
+              $scope.answered = true;
+              $scope.isCorrect = false;
+              $scope.currentQuestion.userChoice = null;
+              stopTimer();
+            }
+          };
+
+          $scope.next = function () {
+            if ($scope.index < $scope.questions.length - 1) {
+              $scope.index++;
+              $scope.answered = false;
+              $scope.isCorrect = false;
+              $scope.selected = null;
+              startTimer();
+            }
+          };
+
+          $scope.prev = function () {
+            if ($scope.index > 0) {
+              $scope.index--;
+              $scope.answered = false;
+              $scope.isCorrect = false;
+              $scope.selected = null;
+              startTimer();
+            }
+          };
+
+          $scope.finish = function () {
+            stopTimer();
+            const modalEl = document.getElementById("resultModal");
+            if (modalEl) {
+              const modal = new bootstrap.Modal(modalEl);
+              modal.show();
+            }
+          };
+
+          $scope.closeResults = function () {
+            startTimer();
+          };
+
+          $scope.reset = function () {
+            stopTimer();
+            $scope.index = 0;
+            $scope.score = 0;
+            $scope.questions.forEach((q) => (q.userChoice = null));
+            $scope.answered = false;
+            $scope.isCorrect = false;
+            $scope.selected = null;
+            startTimer();
+          };
+
+          // Kickoff
+          $scope.reset();
+        },
+      ]);
+    </script>
+
+    <!-- Bootstrap JS (Modal) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
