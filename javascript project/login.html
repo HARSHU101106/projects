@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial;
+       background-color: #aef8b3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-container {
+      background: linear-gradient(to right, #8df791, #4fc355, #016506);
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+    }
+    button {
+      background: #016506;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+    }
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #016506;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+
+    <button onclick="login()">Login</button>
+    <a href="signup.html">Don't have an account? Sign Up</a>
+  </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const user = users.find(u => u.email === email);
+
+      if (!user) {
+        alert("Email not registered. Please Sign Up.");
+        return;
+      }
+
+      if (user.password !== password) {
+        alert("Incorrect password.");
+        return;
+      }
+
+      alert(`Welcome back, ${user.name}!`);
+
+      if (user.userType === "mentor") {
+        window.location.href = "mentor.html";
+      } else {
+        window.location.href = "student.html"; // Change later
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Attendance Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #cefdd1;
+      }
+      header {
+        background: linear-gradient(to right, #8df791, #4fc355, #016506);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 28px;
+      }
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 30px;
+      }
+      .grid-item {
+        background: linear-gradient(to right, #8df791, #4fc355, #016506);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        font-size: 20px;
+      }
+      .grid-item .number {
+        font-size: 40px;
+        font-weight: bold;
+      }
+      .buttons {
+        text-align: center;
+        margin: 20px;
+      }
+      .buttons button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background: linear-gradient(to right, #8df791, #4fc355, #016506);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .list-section {
+        margin: 20px auto;
+        max-width: 700px;
+        background: linear-gradient(to right, #8df791, #4fc355, #016506);
+        color: white;
+        border-radius: 10px;
+        padding: 20px;
+      }
+      .list-section h3 {
+        text-align: center;
+      }
+      .list-section li {
+        padding: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .toggle-btn {
+        padding: 5px 10px;
+        margin: 3px;
+        background-color: white;
+        color: #016506;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .center {
+        text-align: center;
+        margin: 30px;
+      }
+      input[type="text"] {
+        padding: 10px;
+        width: 250px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      /* Modal Styling */
+      #editModal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+      #editModalContent {
+        background: linear-gradient(to right, #8df791, #4fc355, #016506);
+        padding: 20px;
+        width: 300px;
+        margin: 100px auto;
+        border-radius: 10px;
+      }
+      #editModalContent label {
+        display: block;
+        margin: 10px 0;
+      }
+      #editModalContent input[type="number"] {
+        width: 100%;
+        padding: 5px;
+      }
+      #editModalContent button {
+        margin: 10px 5px 0 0;
+        padding: 8px 16px;
+      }
+      #timetableModal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        overflow-y: auto; /* makes modal scrollable on small screens */
+      }
+
+      #timetableModalContent {
+        background: linear-gradient(to right, #8df791, #4fc355, #016506);
+        padding: 20px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        margin: 50px auto;
+        color: black;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      #timetableModalContent h3 {
+        margin-top: 0;
+      }
+
+      #timetableModalContent label {
+        display: block;
+        margin: 10px 0 5px;
+      }
+
+      #timetableModalContent input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      #timetableModalContent button {
+        margin-right: 10px;
+        padding: 8px 16px;
+        background-color: white;
+        color: #016506;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Mentor Dashboard</header>
+
+    <div class="center">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Enter Student ID (e.g. E24AI014)"
+      />
+      <button onclick="searchStudent()">Search</button>
+    </div>
+
+    <div id="studentDetails" class="list-section" style="display: none"></div>
+    <div id="notFoundMessage" class="list-section" style="display: none">
+      <h3>Student Not Found</h3>
+      <p>No student found with ID "<span id="searchIdText"></span>".</p>
+    </div>
+
+    <div class="grid-container">
+      <div class="grid-item">
+        <h2>Total Students</h2>
+        <div class="number" id="totalCount">0</div>
+      </div>
+      <div class="grid-item">
+        <h2>Present Today</h2>
+        <div class="number" id="presentCount">0</div>
+      </div>
+      <div class="grid-item">
+        <h2>Absent Today</h2>
+        <div class="number" id="absentCount">0</div>
+      </div>
+      <div class="grid-item">
+        <h2>Passed</h2>
+        <div class="number" id="passCount">0</div>
+      </div>
+      <div class="grid-item">
+        <h2>Failed</h2>
+        <div class="number" id="failCount">0</div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button onclick="showList('present')">Show Present List</button>
+      <button onclick="showList('absent')">Show Absent List</button>
+      <button onclick="openTimetableModal()">Add Today's Timetable</button>
+    </div>
+    <div id="timetableModal">
+      <div id="timetableModalContent">
+        <h3>Enter Today's Timetable</h3>
+        <form id="timetableForm">
+          <label>9:00 - 10:00:</label><input type="text" id="slot1" required />
+          <label>10:00 - 11:00:</label
+          ><input type="text" id="slot2" required />
+          <label>11:15 - 12:15:</label
+          ><input type="text" id="slot3" required /> <label>12:50 - 1:45:</label
+          ><input type="text" id="slot4" required /> <label>1:45 - 2:45:</label
+          ><input type="text" id="slot5" required /> <label>3:00 - 4:00:</label
+          ><input type="text" id="slot6" required />
+          <button type="submit">Save</button>
+          <button type="button" onclick="closeTimetableModal()">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="studentList" class="list-section" style="display: none"></div>
+
+    <!-- Modal -->
+    <div id="editModal">
+      <div id="editModalContent">
+        <h3>Edit Marks</h3>
+        <form id="editForm">
+          <input type="hidden" id="editStudentId" />
+          <label>Subject 1: <input type="number" id="sub1" required /></label>
+          <label>Subject 2: <input type="number" id="sub2" required /></label>
+          <label>Subject 3: <input type="number" id="sub3" required /></label>
+          <label>Subject 4: <input type="number" id="sub4" required /></label>
+          <label>Subject 5: <input type="number" id="sub5" required /></label>
+          <button type="submit">Save</button>
+          <button type="button" onclick="closeModal()">Cancel</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      let students = [];
+      let selectedType = "";
+
+      fetch("https://mocki.io/v1/b5b0cd8f-5b64-46e6-b68d-6349302e7398")
+        .then((res) => res.json())
+        .then((data) => {
+          const localData = JSON.parse(localStorage.getItem("students"));
+          if (localData && Array.isArray(localData)) {
+            students = localData;
+          } else {
+            students = data.map((s) => ({
+              ...s,
+              marks: s.marks || [0, 0, 0, 0, 0],
+              total: 0,
+            }));
+            students.forEach(
+              (s) => (s.total = s.marks.reduce((a, b) => a + b, 0))
+            );
+          }
+
+          updateRanks();
+          updateCounts();
+        });
+
+      function updateCounts() {
+        document.getElementById("totalCount").textContent = students.length;
+        document.getElementById("presentCount").textContent = students.filter(
+          (s) => s.status.toLowerCase() === "present"
+        ).length;
+        document.getElementById("absentCount").textContent = students.filter(
+          (s) => s.status.toLowerCase() === "absent"
+        ).length;
+
+        const passFail = students.reduce(
+          (acc, s) => {
+            const failed = s.marks.some((m) => m < 35);
+            failed ? acc.fail++ : acc.pass++;
+            return acc;
+          },
+          { pass: 0, fail: 0 }
+        );
+
+        document.getElementById("passCount").textContent = passFail.pass;
+        document.getElementById("failCount").textContent = passFail.fail;
+
+        localStorage.setItem("students", JSON.stringify(students));
+      }
+
+      function updateRanks() {
+        const ranked = [...students].sort((a, b) => b.total - a.total);
+        ranked.forEach((s, i) => (s.rank = i + 1));
+      }
+
+      function searchStudent() {
+        const id = document
+          .getElementById("searchInput")
+          .value.trim()
+          .toLowerCase();
+        const student = students.find((s) => s.id.toLowerCase() === id);
+        document.getElementById("searchIdText").textContent = id.toUpperCase();
+
+        if (student) {
+          document.getElementById("studentDetails").style.display = "block";
+          document.getElementById("notFoundMessage").style.display = "none";
+          document.getElementById("studentDetails").innerHTML = `
+        <h3>Student Details</h3>
+        <ul>
+          <li><strong>ID:</strong> ${student.id}</li>
+          <li><strong>Name:</strong> ${student.name}</li>
+          <li><strong>Status:</strong> ${student.status}</li>
+          <li><strong>Marks:</strong> ${student.marks.join(", ")}</li>
+          <li><strong>Total:</strong> ${student.total}</li>
+          <li><strong>Rank:</strong> ${student.rank || "-"}</li>
+          <li><button class="toggle-btn" onclick="editStudent('${
+            student.id
+          }')">Edit Student</button></li>
+        </ul>`;
+        } else {
+          document.getElementById("studentDetails").style.display = "none";
+          document.getElementById("notFoundMessage").style.display = "block";
+        }
+      }
+
+      function showList(type) {
+        selectedType = type;
+        const filtered = students.filter(
+          (s) => s.status.toLowerCase() === type
+        );
+        const listHTML = `
+      <h3>${type === "present" ? "Present" : "Absent"} Students</h3>
+      <ul>
+        ${filtered
+          .map(
+            (s) => `
+          <li>
+            ${s.id} - ${s.name}
+            <div>
+              <button class="toggle-btn" onclick="toggleStatus('${s.id}')">
+                Mark ${
+                  s.status.toLowerCase() === "present" ? "Absent" : "Present"
+                }
+              </button>
+            </div>
+          </li>
+        `
+          )
+          .join("")}
+      </ul>`;
+        document.getElementById("studentList").innerHTML = listHTML;
+        document.getElementById("studentList").style.display = "block";
+      }
+
+      function toggleStatus(id) {
+        const student = students.find((s) => s.id === id);
+        if (student) {
+          student.status =
+            student.status.toLowerCase() === "present" ? "Absent" : "Present";
+          updateCounts();
+          if (selectedType) showList(selectedType);
+        }
+      }
+
+      function editStudent(id) {
+        const student = students.find((s) => s.id === id);
+        if (student) {
+          document.getElementById("editStudentId").value = id;
+          document.getElementById("sub1").value = student.marks[0];
+          document.getElementById("sub2").value = student.marks[1];
+          document.getElementById("sub3").value = student.marks[2];
+          document.getElementById("sub4").value = student.marks[3];
+          document.getElementById("sub5").value = student.marks[4];
+          document.getElementById("editModal").style.display = "block";
+        }
+      }
+
+      function closeModal() {
+        document.getElementById("editModal").style.display = "none";
+      }
+
+      document
+        .getElementById("editForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const id = document.getElementById("editStudentId").value;
+          const student = students.find((s) => s.id === id);
+          student.marks = [
+            +document.getElementById("sub1").value,
+            +document.getElementById("sub2").value,
+            +document.getElementById("sub3").value,
+            +document.getElementById("sub4").value,
+            +document.getElementById("sub5").value,
+          ];
+          student.total = student.marks.reduce((a, b) => a + b, 0);
+          updateRanks();
+          closeModal();
+          updateCounts();
+          searchStudent();
+          if (selectedType) showList(selectedType);
+        });
+
+      // ⏰ Timetable Modal functions
+      function openTimetableModal() {
+        document.getElementById("timetableModal").style.display = "block";
+      }
+
+      function closeTimetableModal() {
+        document.getElementById("timetableModal").style.display = "none";
+      }
+
+      document
+        .getElementById("timetableForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const timetable = {
+            "9:00 - 10:00": document.getElementById("slot1").value,
+            "10:00 - 11:00": document.getElementById("slot2").value,
+            "11:15 - 12:15": document.getElementById("slot3").value,
+            "12:50 - 1:45": document.getElementById("slot4").value,
+            "1:45 - 2:45": document.getElementById("slot5").value,
+            "3:00 - 4:00": document.getElementById("slot6").value,
+          };
+          localStorage.setItem("timetable", JSON.stringify(timetable));
+          alert("Timetable saved successfully!");
+          closeTimetableModal();
+        });
+    </script>
+  </body>
+</html>
